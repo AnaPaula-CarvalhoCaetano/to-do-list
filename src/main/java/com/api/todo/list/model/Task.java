@@ -21,4 +21,13 @@ import lombok.Setter;
 @Table(name = "ToDo_Table")
 public class Task {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String id;
+	private String descricao;
+	private String concluida;
+
+	private Date dataCriacao;
+	private Date dataConclusao;
+
 }
