@@ -26,7 +26,7 @@ public class Task {
 	private String id;
 	private String descricao;
 	private String concluida;
-
+    private String responsavel;
 	private Date dataCriacao;
 	private Date dataConclusao;
 
