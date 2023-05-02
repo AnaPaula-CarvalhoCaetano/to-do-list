@@ -1,4 +1,4 @@
-package com.api.todo.list.model;
+package com.api.todo.list.DTO;
 
 import java.util.Date;
 
@@ -16,15 +16,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "ToDo_Table")
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TaskDTO {
     private Long id;
     private String descricao;
     private boolean concluida;
     private String responsavel;
     private Date dataCriacao;
     private Date dataConclusao;
+    
 }
