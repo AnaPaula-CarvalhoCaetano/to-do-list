@@ -1,13 +1,18 @@
 package com.api.todo.list.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.todo.list.DTO.TaskDTO;
 import com.api.todo.list.model.Task;
 import com.api.todo.list.repository.TaskRepository;
 import com.api.todo.list.service.TaskService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -15,31 +20,41 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskRepository taskRepository;
 
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Transactional
 	@Override
-	public Task createTaks(Task task) {
-		return taskRepository.save(task);
+	public TaskDTO createTask(TaskDTO taskDto) {
+	    Task task = modelMapper.map(taskDto, Task.class);
+	    taskRepository.save(task);
+	    return modelMapper.map(task, TaskDTO.class);
 	}
 
 	@Override
-	public List<Task> getTask() {
-		return (List<Task>) taskRepository.findAll();
+	public List<TaskDTO> getTask() {
+		List<Task> tasks = (List<Task>) taskRepository.findAll();
+		return tasks.stream().map(task -> modelMapper.map(task, TaskDTO.class)).collect(Collectors.toList());
 	}
 
 	@Override
-	public Task getTaskById(long id) {
-		return taskRepository.findById(id).get();
+	public TaskDTO getTaskById(long id) {
+		Task task = taskRepository.findById(id).orElseThrow();
+		return modelMapper.map(task, TaskDTO.class);
 	}
 
 	@Override
-	public Task updateTask(Task task, long id) {
-		Task task1 = taskRepository.findById(id).get();
-		task1.setDescricao(task.getDescricao());
-		task1.setResponsavel(task.getResponsavel());
-		task1.setDataCriacao(task.getDataCriacao());
-		task1.setDataConclusao(task.getDataConclusao());
-		task1.setConcluida(true);
+	public TaskDTO updateTask(TaskDTO taskDto, long id) {
+		Task task = taskRepository.findById(id).orElseThrow();
+		task.setDescricao(taskDto.getDescricao());
+		task.setResponsavel(taskDto.getResponsavel());
+		task.setDataCriacao(taskDto.getDataCriacao());
+		task.setDataConclusao(taskDto.getDataConclusao());
+		task.setConcluida(taskDto.isConcluida());
 
-		return taskRepository.save(task);
+		taskRepository.save(task);
+
+		return modelMapper.map(task, TaskDTO.class);
 	}
 
 	@Override

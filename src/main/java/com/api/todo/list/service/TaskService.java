@@ -4,18 +4,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.api.todo.list.DTO.TaskDTO;
 import com.api.todo.list.model.Task;
 
 @Service
 public interface TaskService {
 
-	public Task createTaks(Task task);
+	public TaskDTO createTask(TaskDTO task);
 
-	public List<Task> getTask();
+	public List<TaskDTO> getTask();
 
-	public Task getTaskById(long id);
+	public TaskDTO getTaskById(long id);
 
-	public Task updateTask(Task task, long id);
+	public TaskDTO updateTask(TaskDTO task, long id);
 
 	public void deleteTask(long id);
+
+	
 }
