@@ -19,14 +19,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "ToDo_Table")
 public class Task {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String descricao;
-	private boolean concluida;
-	private String responsavel;
-	private String dataCriacao;
-	private String dataConclusao;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String descricao;
+    private boolean concluida = false; // valor padrão
+    private String responsavel;
+    private String dataCriacao;
+    private String dataConclusao;
 	
 }

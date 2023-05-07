@@ -22,14 +22,21 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class TaskDTO {
-	private Long id;
-    private String descricao;
-    private boolean concluida;
-    private String responsavel;
-    private String dataCriacao;
-    private String dataConclusao;
+    @JsonProperty("id")
+    private Long id;
 
-    
-    
-	}
-    
+    @JsonProperty("descricao")
+    private String descricao;
+
+    @JsonProperty("concluida")
+    private boolean concluida;
+
+    @JsonProperty("responsavel")
+    private String responsavel;
+
+    @JsonProperty("dataCriacao")
+    private String dataCriacao;
+
+    @JsonProperty("dataConclusao")
+    private String dataConclusao;
+}
